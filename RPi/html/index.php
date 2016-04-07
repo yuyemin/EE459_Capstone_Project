@@ -2,4 +2,6 @@
 <?php echo "IP ADDR: ", exec('hostname -I'), "<br>"; ?>
 <?php echo "Group Members:<br>"; ?>
 <?php echo "Kukar, Ellis, Alvarado, Yu<br>"; ?>
-<input type="button" value="Test Button" onclick="location='buttonPress.php'"/>
+<input type="button" value="Turn Off" onclick="location='allOff.php'"/>
+<input type="button" value="Turn On" onclick="location='allOn.php'"/>
+
