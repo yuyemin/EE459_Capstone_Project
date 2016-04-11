@@ -102,7 +102,7 @@ void initSprinklerZones(int sprinklerZoneCount, int sprinklerZones[6]) {
     // defaults all the sprinkler zones to OFF
     int i = 0;
     for (i = 0; i < sprinklerZoneCount; i++) {
-        sprinklerZones[i] = 1;
+        sprinklerZones[i] = 0;
     }
 }
 

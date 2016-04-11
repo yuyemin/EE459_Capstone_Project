@@ -1,0 +1,1 @@
+epiphany-browser -a --profile ~/.config http://localhost/index.html
