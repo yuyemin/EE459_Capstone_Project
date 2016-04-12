@@ -1,6 +1,7 @@
 <html>
 <head>
 <title>Group 15 Sprinkler Project</title>
+<link rel="stylesheet" type="text/css" href="settings_style.css">
 </head>
 
 <body>
@@ -238,17 +239,27 @@
         
         
     }
+    
+    mysql_close();
 ?>
+<center>
+<div class="datagrid">
+<h1>Sprinkler Settings</h1>
 
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+</div>
 
-    <input type="submit" name="Save">
+    <input type="submit" value="Save Changes">
 
+    <div class="datagrid">
     <h2>Schedule</h2>
-    <table border = '1' cellpadding='10'>
+    <table>
+    <thead>
     <tr>
     <th>Day</th> <th>Program(s)</th>
     </tr>
+    </thead>
+    <tbody>
     <tr>
         <td>Monday</td> 
         <td> <input type="text" name="s1" value = "<?php echo htmlspecialchars($s1); ?>" /> </td>
@@ -276,16 +287,23 @@
     <tr>
         <td>Sunday</td> 
         <td> <input type="text" name="s7" value = "<?php echo htmlspecialchars($s7); ?>" /> </td>
-    </tr>      
+    </tr>
+    </tbody>      
     </table>
+    </div>
     
+    <div class="datagrid">
     <h2>Program 1</h2>
     Time of Day (HHMM) <input type="text" name="p17" value = "<?php echo htmlspecialchars($p17); ?>" />
     
-    <table border = '1' cellpadding='10'>
+    
+    <table>
+    <thead>
     <tr>
     <th>Zone</th> <th>Run Time (min.)</th>
     </tr>
+    </thead>
+    <tbody>
     <tr>
         <td>1</td> 
         <td> <input type="text" name="p11" value = "<?php echo htmlspecialchars($p11); ?>" /> </td>
@@ -309,16 +327,22 @@
     <tr>
         <td>6</td> 
         <td> <input type="text" name="p16" value = "<?php echo htmlspecialchars($p16); ?>" /> </td>
-    </tr>     
+    </tr>  
+    </tbody>   
     </table>
+    </div>
     
+    <div class="datagrid">
     <h2>Program 2</h2>
     Time of Day (HHMM) <input type="text" name="p27" value = "<?php echo htmlspecialchars($p27); ?>" />
     
     <table border = '1' cellpadding='10'>
+    <thead>
     <tr>
     <th>Zone</th> <th>Run Time (min.)</th>
     </tr>
+    </thead>
+    <tbody>
     <tr>
         <td>1</td> 
         <td> <input type="text" name="p21" value = "<?php echo htmlspecialchars($p21); ?>" /> </td>
@@ -342,16 +366,22 @@
     <tr>
         <td>6</td> 
         <td> <input type="text" name="p26" value = "<?php echo htmlspecialchars($p26); ?>" /> </td>
-    </tr>     
+    </tr>    
+    </tbody> 
     </table>
+    </div>
     
+    <div class="datagrid">
     <h2>Program 3</h2>
     Time of Day (HHMM) <input type="text" name="p37" value = "<?php echo htmlspecialchars($p37); ?>" />
     
     <table border = '1' cellpadding='10'>
+    <thead>
     <tr>
     <th>Zone</th> <th>Run Time (min.)</th>
     </tr>
+    </thead>
+    <tbody>
     <tr>
         <td>1</td> 
         <td> <input type="text" name="p31" value = "<?php echo htmlspecialchars($p31); ?>" /> </td>
@@ -375,65 +405,15 @@
     <tr>
         <td>6</td> 
         <td> <input type="text" name="p36" value = "<?php echo htmlspecialchars($p36); ?>" /> </td>
-    </tr>     
+    </tr>  
+    </tbody>   
     </table>
+    </div>
     
     
     
 
 </form>
-
-
-
-<?php
-        echo "SPRINKLER SETTINGS<br>";
-        
-        ini_set('display_errors', '1');
-        $username="group15";
-        $password="finalproject";
-        $database="finalproject";
-        mysql_connect("localhost",$username,$password);
-        mysql_select_db($database) or die( "Unable to select database");
-
-        // SCHEDULE
-            
-        $query= "SELECT * FROM Schedule";
-        $result=mysql_query($query);
-
-        echo "Weekly Schedule<br>";
-        
-        echo "<table border='1' cellpadding='10'>";
-        echo "<tr><th>Day</th><th>Program(s)</th></tr>";
-
-        while($row = mysql_fetch_array($result))
-         {
-          echo '<td>' . $row['Day'] . '</td>';
-          echo '<td>' . $row['Time'] . '</td>';
-          echo "</tr>"; 
-          }
-         echo "</table>";
-         
-         // PROGRAM 1
-            
-        $query= "SELECT * FROM Program1";
-        $result=mysql_query($query);
-
-        echo "Program 1<br>";
-        
-        echo "<table border='1' cellpadding='10'>";
-        echo "<tr><th>Zone</th><th>Time(minutes)</th></tr>";
-
-        while($row = mysql_fetch_array($result))
-         {
-          echo '<td>' . $row['Day'] . '</td>';
-          echo '<td>' . $row['Time'] . '</td>';
-          echo "</tr>"; 
-          }
-         echo "</table>";
-
-    mysql_close();
-
-?>
 
 </body>
 </html>
