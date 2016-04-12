@@ -1,0 +1,20 @@
+#include <avr/io.h>
+#include <util/delay.h>
+
+#define LED        PB1
+#define LED_PORT   PORTB
+#define THERM      PB0
+#define THERM_PORT PORTB
+
+void read_therm()
+{
+  DDRB |= 1<<THERM;
+  THERM_PORT &= ~(1<<THERM);
+  _delay_ms(5);
+  LED_PORT |= 1<<LED;
+  DDRB &= ~(1<<THERM);
+  THERM_PORT &= ~(1<<LED);
+  
+  While(
+  
+  
