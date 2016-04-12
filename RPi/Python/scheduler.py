@@ -2,17 +2,18 @@
 # CB: Michael Kukar 2016
 # reads in database entries, sensors, etc. and comes up with a schedule to follow
 
+from database_handler import *
+
+
+
 class Scheduler():
 
     def __init__(self):
-        print("IN PROGRESS")
-        self.waterSaturation = 0
+        self.database = Database_Handler() # reference to the database that we will use
+        self.curSchedule = self.database.getSchedule()
+
 
     # takes in all sensor and database input and creates a schedule from it
-    def updateSchedule(self):
-        print("IN PROGRESS")
-
-    # checks if currently the sprinklers should be running or not
-    # looks at current time and cycle period + takes into account water saturation
-    def checkShouldRunSprinklers(self):
+    # returns the new planned schedule
+    def updateScheduleBasedOnData(self):
         print("IN PROGRESS")

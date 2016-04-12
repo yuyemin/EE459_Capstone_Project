@@ -108,42 +108,42 @@ void initSprinklerZones(int sprinklerZoneCount, int sprinklerZones[6]) {
 
 // sets all the sprinkler zones using the sprinklerZones[] integer array and ports PC0-3
 void setSprinklerZones(int sprinklerZoneCount, int sprinklerZones[6]) {
-    if (sprinklerZones[0] == 0) {
+    if (sprinklerZones[2] == 0) {
         PORTC &= ~(1 << PC0);      // Set PC0 to a 0
     }
     else {
         PORTC |= 1 << PC0;      // Set PC0 to a 1
     }
     
-    if (sprinklerZones[1] == 0) {
+    if (sprinklerZones[3] == 0) {
         PORTC &= ~(1 << PC1);      // Set PC0 to a 0
     }
     else {
         PORTC |= 1 << PC1;      // Set PC0 to a 1
     }
     
-    if (sprinklerZones[2] == 0) {
+    if (sprinklerZones[4] == 0) {
         PORTC &= ~(1 << PC2);      // Set PC0 to a 0
     }
     else {
         PORTC |= 1 << PC2;      // Set PC0 to a 1
     }
     
-    if (sprinklerZones[3] == 0) {
+    if (sprinklerZones[5] == 0) {
         PORTC &= ~(1 << PC3);      // Set PC0 to a 0
     }
     else {
         PORTC |= 1 << PC3;      // Set PC0 to a 1
     }
     
-    if (sprinklerZones[4] == 0) {
+    if (sprinklerZones[0] == 0) {
         PORTB &= ~(1 << PB2);      // Set PC0 to a 0
     }
     else {
         PORTB |= 1 << PB2;      // Set PC0 to a 1
     }
     
-    if (sprinklerZones[5] == 0) {
+    if (sprinklerZones[1] == 0) {
         PORTB &= ~(1 << PB1);      // Set PC0 to a 0
     }
     else {
