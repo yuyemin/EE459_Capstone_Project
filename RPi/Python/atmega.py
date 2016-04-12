@@ -35,12 +35,12 @@ class Atmega():
                 self.serial.write(chr(48))
 
         response = self.serial.read()
-        '''
+
         if response == 'a':
             print("GOOD TRANSMIT TO ZONES")
         else:
             print("BAD TRANSMIT TO ZONES")
-        '''
+
         self.portBusy = False
 
     # returns the temperature reading from the microcontroller

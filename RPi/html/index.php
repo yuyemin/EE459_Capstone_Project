@@ -1,4 +1,4 @@
-<input type="button" value="Go to Final Look & Feel" onclick="location='pi_main.php'"/>
+<input type="button" value="Settings" onclick="location='settings.php'"/>
 <?php echo "EE459 Final Project Group 15<br>"; ?>
 <?php echo "IP ADDR: ", exec('hostname -I'), "<br>"; ?>
 <?php echo "Group Members:<br>"; ?>
