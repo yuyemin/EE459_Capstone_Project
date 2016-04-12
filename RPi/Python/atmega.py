@@ -21,6 +21,11 @@ class Atmega():
     def setZone(self, zoneNumber, zoneBool):
         self.zoneArr[zoneNumber] = zoneBool
 
+    # turns off all the zones
+    def setAllOff(self):
+        for zone in self.zoneArr:
+            zone = False
+
     # writes to the sprinkler zones
     # array of zones with True or False boolean values
     def writeZones(self):

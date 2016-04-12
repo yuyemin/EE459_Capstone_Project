@@ -99,7 +99,11 @@ def updateSchedulePlan(todaySchedule):
     ranProgram2Today = False
     ranProgram3Today = False
 
-
+def startTestMode(zoneNumber):
+    testMode = True
+    waterCycler.enterTestMode(zoneNumber)
+    runDuration = 5 # 5 minutes
+    runningProgram = True
 
 # #########
 # VARIABLES
@@ -119,6 +123,7 @@ curMilTime = (curTime.hour * 100) + curTime.minute
 print("CUR TIME: " + str(curMilTime))
 
 # make sure we run programs sequentially and don't run them concurrently
+testMode = False
 runProgram1 = False
 runProgram2 = False
 runProgram3 = False
@@ -165,6 +170,9 @@ while(True):
         runDuration = runDuration - 1 # we cycle every minute, so we subtract one from the run duration
         if runDuration <= 0:
             runningProgram = False
+            if testMode: # exits the test mode
+                waterCycler.exitTestMode()
+                testMode = False
 
 
 
