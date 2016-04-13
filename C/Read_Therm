@@ -1,20 +1,99 @@
 #include <avr/io.h>
+#include <stdlib.h>
+#include <math.h>
 #include <util/delay.h>
+#include <stdio.h>
 
-#define LED        PB1
-#define LED_PORT   PORTB
-#define THERM      PB0
-#define THERM_PORT PORTB
+typedef uint8_t byte;
 
-void read_therm()
+double temp,humidity;
+int sensor_data[40];
+
+void temperature_get()
 {
-  DDRB |= 1<<THERM;
-  THERM_PORT &= ~(1<<THERM);
-  _delay_ms(5);
-  LED_PORT |= 1<<LED;
-  DDRB &= ~(1<<THERM);
-  THERM_PORT &= ~(1<<LED);
-  
-  While(
-  
-  
+
+	byte i;
+	i=0;
+	DDRB  |= (1 << PB0); //Set PB0 (Pin 14) as output
+	PORTB &= ~(1 << PB0);
+	
+	_delay_ms(5);			// Send for at least 1 ms 
+	PORTB |= (1<<PB1);	
+	DDRB  &= ~(1<<PB0); //Set PB0 (Pin 14) as input
+	PORTB &= ~(1<<PB1);
+	
+	
+	
+	while((PINB & (1<<PB0)))
+	{
+		//PORTC |= (1<<PC1);
+		//PORTC &= ~(1<<PC1);
+	}
+	
+
+
+	//_delay_us(59);			// Send for at least 1 ms
+	while((PINB & 0x01)==0)
+	{	
+		//PORTB |= (1<< PB1);
+		//PORTB &= ~(1<< PB1);	
+	}
+	
+	//_delay_us(60);
+	while((PINB &(1<<PB0)))
+	{	
+		//PORTC |= (1<< PC1);
+		//PORTC &= ~(1<< PC1);
+	}
+	
+	while(i!=40)
+	{
+		
+		while((PINB & 0x01)==0)
+	{	
+		//PORTB |= (1<< PB1);
+		//PORTB &= ~(1<< PB1);	
+	}
+		
+
+		//PORTC |= (1<<PC1); 
+		_delay_us(22);
+		//PORTC &= ~(1<<PC1);
+		
+		if((PINB & (1<<PB0))){
+		
+			//PORTB |= (1<<PB1); 
+			//PORTB &= ~(1<<PB1);
+
+			sensor_data[i] = 1;
+			
+			while((PINB &(1<<PB0)))
+			{	
+				//PORTC |= (1<< PC1);
+				//PORTC &= ~(1<< PC1);
+			}	
+			i++;
+		}
+		else{
+			//PORTC |= (1<<PC1); 
+			//PORTC &= ~(1<<PC1);
+
+			sensor_data[i] = 0;
+		
+			i++;
+		}
+	}
+	
+	byte temporary_temp = 0;
+	byte temporary_humidity = 0;
+	int k;
+	for (k=0; k<16; k++){
+		temporary_temp = temporary_temp + ((short int)pow(2,k)*(double)sensor_data[31-k]);
+		temporary_humidity = temporary_humidity + ((short int)pow(2,k)*(double)sensor_data[15-k]);
+	}
+
+	
+	temp = temporary_temp/10;
+	humidity = temporary_humidity/100;
+}	
+
