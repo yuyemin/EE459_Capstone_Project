@@ -58,4 +58,23 @@ class Atmega():
 
     # returns the soil moisture level
     def readMoisture(self):
-        print("IN PROGRESS")
+        # print("IN PROGRESS")
+        while self.portBusy:  # waits until it has the opportunity to use the port
+            time.sleep(1)
+        self.portBusy = True
+        self.serial.write(chr(98))
+        readover = False
+        while not readover:
+            response = self.serial.read();
+            if response == 'a':
+                readover = True
+            else:
+                if response == '1':
+                    print("VERY MOIST")
+                elif response == '2':
+                    print("MOIST")
+                elif response == '3':
+                    print("KINDA MOIST")
+                elif response == '4':
+                    print("NOT MOIST")
+        self.portBusy = False
