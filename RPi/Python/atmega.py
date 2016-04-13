@@ -23,12 +23,13 @@ class Atmega():
 
     # turns off all the zones
     def setAllOff(self):
-        for zone in self.zoneArr:
-            zone = False
+        for i in range(len(self.zoneArr)):
+            self.zoneArr[i] = False
 
     # writes to the sprinkler zones
     # array of zones with True or False boolean values
     def writeZones(self):
+        time.sleep(0.1) # waits at least .1 second to give it a chance to read and send
         while self.portBusy: # waits until it has the opportunity to use the port
             time.sleep(1)
         self.portBusy = True
@@ -56,7 +57,7 @@ class Atmega():
     def readHumidity(self):
         print("IN PROGRESS")
 
-    # returns the soil moisture level
+    # returns the soil moisture level and returns an int from 0 - 4 (0 is not working, 1 is wet, 4 is dry)
     def readMoisture(self):
         # print("IN PROGRESS")
         while self.portBusy:  # waits until it has the opportunity to use the port
@@ -64,17 +65,24 @@ class Atmega():
         self.portBusy = True
         self.serial.write(chr(98))
         readover = False
+        output = 0 # default just returns 0 for no sensor data
         while not readover:
             response = self.serial.read();
             if response == 'a':
                 readover = True
             else:
                 if response == '1':
+                    output = 1
                     print("VERY MOIST")
                 elif response == '2':
+                    output = 2
                     print("MOIST")
                 elif response == '3':
+                    output = 3
                     print("KINDA MOIST")
                 elif response == '4':
+                    output = 4
                     print("NOT MOIST")
         self.portBusy = False
+        return output
+

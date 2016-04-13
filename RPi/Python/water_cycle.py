@@ -15,10 +15,13 @@ class Water_Cycle():
 
     def enterTestMode(self, zoneNumber):
         self.testMode = True
-        time.sleep(1) # gives it a few seconds to not cause writing conflicts
+        time.sleep(0.1) # gives it a few seconds to not cause writing conflicts
+        self.atmega.setAllOff() # clears the other indexes
         if (zoneNumber > 0):
+            print("Test Mode wrote to zone...")
             self.atmega.setZone(zoneNumber - 1, True)
         else:
+            print("Test Mode wrote to zone...")
             self.atmega.setAllOff()
         self.atmega.writeZones()
 
@@ -44,6 +47,23 @@ class Water_Cycle():
                 self.atmega.setZone(i, True)
                 self.atmega.writeZones()
                 print("STARTED WATERING ZONE " + str(i + 1))
+                # sleeps for 60 seconds, then reads the water level
+                runTime = int(programArr[i]) * 60
+                saturated = False # starts with saturated as false
+                while(runTime > 0):
+                    time.sleep(60)
+                    moistureLevel = self.atmega.readMoisture()
+                    if (moistureLevel == 1) and (saturated == False): # only activates on VERY MOIST
+                        print("Zone saturated, waiting until less wet.")
+                        saturated = True
+                        self.atmega.setZone(i, False)
+                        self.atmega.writeZones()
+                    elif (moistureLevel != 1) and (saturated == True):
+                        print("Zone dried off, resuming watering.")
+                        saturated = False
+                        self.atmega.setZone(i, True)
+                        self.atmega.writeZones()
+
                 time.sleep(int(programArr[i]) * 60)
                 while(self.testMode): # waits if it is in test mode
                     time.sleep(1)

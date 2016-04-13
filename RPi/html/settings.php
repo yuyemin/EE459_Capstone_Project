@@ -5,6 +5,7 @@
 <style>
 input[type='text'] { font-size: 36px; }
 input[type='submit'] { font-size: 40px; }
+input[type='button'] { font-size: 40px; }
 </style>
 </head>
 
@@ -254,7 +255,7 @@ input[type='submit'] { font-size: 40px; }
 </div>
 
     <input type="submit" value="Save Changes">
-
+    <input input type="button" value="Home Page" onclick="location='index.php'">
     <div class="datagrid">
     <h2>Schedule</h2>
     <table>
