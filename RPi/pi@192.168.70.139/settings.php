@@ -2,10 +2,6 @@
 <head>
 <title>Group 15 Sprinkler Project</title>
 <link rel="stylesheet" type="text/css" href="settings_style.css">
-<style>
-input[type='text'] { font-size: 36px; }
-input[type='submit'] { font-size: 40px; }
-</style>
 </head>
 
 <body>
@@ -340,7 +336,7 @@ input[type='submit'] { font-size: 40px; }
     <h2>Program 2</h2>
     Time of Day (HHMM) <input type="text" name="p27" value = "<?php echo htmlspecialchars($p27); ?>" />
     
-    <table>
+    <table border = '1' cellpadding='10'>
     <thead>
     <tr>
     <th>Zone</th> <th>Run Time (min.)</th>
@@ -379,7 +375,7 @@ input[type='submit'] { font-size: 40px; }
     <h2>Program 3</h2>
     Time of Day (HHMM) <input type="text" name="p37" value = "<?php echo htmlspecialchars($p37); ?>" />
     
-    <table>
+    <table border = '1' cellpadding='10'>
     <thead>
     <tr>
     <th>Zone</th> <th>Run Time (min.)</th>
