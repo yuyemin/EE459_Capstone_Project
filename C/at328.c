@@ -17,6 +17,7 @@ CB: Michael Kukar
 void getZonesFromSerial(int sprinklerZoneCount, int sprinklerZones[4], unsigned char confirmationChar);
 void setSprinklerZones(int sprinklerZoneCount, int sprinklerZones[4]);
 void initSprinklerZones(int sprinklerZoneCount, int sprinklerZones[4]);
+void getMoistureLevel();
 void usart_init(unsigned short);
 void usart_out(char);
 char usart_in();
@@ -46,6 +47,7 @@ int main(void)
     // SERIAL VARIABLES
     unsigned char zoneUpdate = 122; //'z'  if we get this, we know to update the zones
     unsigned char confirmationChar = 97; //'a'  sends this back on good data received
+    unsigned char getMoist = 98;
 
     //forever loop
     while (1) {
@@ -58,7 +60,9 @@ int main(void)
             getZonesFromSerial(sprinklerZoneCount, sprinklerZones, confirmationChar);
             setSprinklerZones(sprinklerZoneCount, sprinklerZones);
         }
-        
+        else if (rawInput == getMoist) {
+			getMoistureLevel();
+		}
         
         _delay_ms(10); // delays for 10ms between iterations
         
@@ -149,6 +153,22 @@ void setSprinklerZones(int sprinklerZoneCount, int sprinklerZones[6]) {
     else {
         PORTB |= 1 << PB1;      // Set PC0 to a 1
     }
+}
+
+void getMoistureLevel() {
+	if ((PORTD & (1 << PD6)) && (PORTD & (1 << PD7))) { // VERY MOIST
+		usart_out(49);
+	}
+	else if (~(PORTD & (1 << PD6)) && (PORTD & (1 << PD7))) { // MOIST
+		usart_out(50);
+	}
+	else if ((PORTD & (1 << PD6)) && ~(PORTD & (1 << PD7))) { // KINDA MOIST
+		usart_out(51);
+	}
+	else {
+		usart_out(52);
+	}
+	usart_out(confirmationChar);
 }
 
 // SERIAL COMMANDS
